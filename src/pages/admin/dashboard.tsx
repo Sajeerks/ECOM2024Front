@@ -8,24 +8,23 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
 // import Loader from "../../components/admin/Loader";
-import data from "../../assets/data.json"
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { useStatsQuery } from "../../redux/api/dashboardApi";
-import { CustomError } from "../../types/type";
-import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { StatsType } from "../../types/api-types";
-import { Skeleton } from "../../components/Loader";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { Skeleton } from "../../components/Loader";
+import { useStatsQuery } from "../../redux/api/dashboardApi";
+import { RootState } from "../../redux/store";
+import { StatsType } from "../../types/api-types";
+import { CustomError } from "../../types/type";
 
 // import { useAllCategoriesQuery } from "../../redux/api/productApi";
 // import { CustomError } from "../../types/type";
 // import { Fragment } from "react";
 // import { Skeleton } from "../../components/Loader";
 
-const userImg =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
+// const userImg =
+//   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
 
 const Dashboard = () => {
 
