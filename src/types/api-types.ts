@@ -331,24 +331,24 @@ export type DeleteOrderResponseType = Omit< UpdateOrderResponseType,"order">
 
 
 
-type ComplexType = {
-  a: number;
-  b: string;
-}
+// type ComplexType = {
+//   a: number;
+//   b: string;
+// }
 
-type EventsCollection = {
-  [k: string]: {
-      name: string;
-      events?: ComplexType;
-      desc: string;
-  };
-}
+// type EventsCollection = {
+//   [k: string]: {
+//       name: string;
+//       events?: ComplexType;
+//       desc: string;
+//   };
+// }
 
-type Events = Required<
-  EventsCollection[keyof EventsCollection]
->["events"];
+// type Events = Required<
+//   EventsCollection[keyof EventsCollection]
+// >["events"];
 
-const events: Events = {
-  a: 1,
-  b: "2",
-};
+// const events: Events = {
+//   a: 1,
+//   b: "2",
+// };
