@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 
 
@@ -11,11 +11,12 @@ import { RootState } from "../../../redux/store";
 import { useAllOrdersQuery, useDeleteOrderMutation, useSingleOrderQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
 import toast from "react-hot-toast";
 import { Skeleton } from "../../../components/Loader";
+import { responseToast } from "../../../utils/features";
 
 const img =
   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
-const orderItems: OrderItem[] = [
+const orderItems1: OrderItem[] = [
   {
     name: "Puma Shoes",
     photo: img,
@@ -25,11 +26,43 @@ const orderItems: OrderItem[] = [
     _id:"ssssssssssssss"
   },
 ];
+const orderItems: OrderItem[] = [
+  {
+    name: "",
+    photo: "",
+    productId: "",
+    quantity: 0,
+    price: 0,
+    _id:""
+  },
+];
+
+
+
+
+const defaultData  ={
+  name: "",
+  address: "",
+  city: "",
+  state: "",
+  country: "",
+  pinCode: 0,
+  status: "",
+  subtotal: 0,
+  discount: 0,
+  shippingCharges: 0,
+  tax: 0,
+  total: 0 ,
+  orderItems,
+  user:{name:"", _id:""},
+  _id:""
+}
 
 const TransactionManagement = () => {
   const  {user} = useSelector((state:RootState)=>state.userReducer)
   const {id} = useParams()
 
+  const navigate = useNavigate()
   const [updateOrder]= useUpdateOrderMutation()
   const [deletOrder]= useDeleteOrderMutation()
 
@@ -38,6 +71,7 @@ const TransactionManagement = () => {
   
   const {error, isLoading, data, isError} = useSingleOrderQuery(id!)
 
+  if(isError) return <Navigate to={"/404"}/>
 
 
   // const {error, isLoading, data, isError} = useAllOrdersQuery(user?._id!)
@@ -73,15 +107,24 @@ const TransactionManagement = () => {
     status,
   } = order;
 
-  const updateHandler = (): void => {
-    setOrder((prev) => ({
-      ...prev,
-      status: "Shipped",
-    }));
+  const updateHandler =async () => {
+const res = await updateOrder({
+   userId:user?._id!,
+   orderId:data?.singleOrder._id!
+})
+responseToast(res, navigate, "/admin/transaction")
+    // setOrder((prev) => ({
+    //   ...prev,
+    //   status: "Shipped",
+    // }));
   };
 
-  const deleteHandler =()=>{
-    
+  const deleteHandler =async()=>{
+    const res = await deletOrder({
+      userId:user?._id!,
+      orderId:data?.singleOrder._id!
+   })
+   responseToast(res, navigate, "/admin/transaction")
   }
 
 useEffect(() => {

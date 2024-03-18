@@ -4,7 +4,7 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import { useDeleteProductMutation, useProductDetailsQuery, useUpdatePRoductMutation } from "../../../redux/api/productApi";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { server } from "../../../App";
 import { Skeleton } from "../../../components/Loader";
 import { responseToast } from "../../../utils/features";
@@ -15,8 +15,10 @@ const params = useParams()
 const navigate = useNavigate()
   const  {user} = useSelector((state:RootState)=>state.userReducer)
 
-  const {data, isLoading} = useProductDetailsQuery(params.id!)
+  const {data, isLoading, isError} = useProductDetailsQuery(params.id!)
 
+
+  if(isError) return <Navigate to={"/404"}/>
 
 
 

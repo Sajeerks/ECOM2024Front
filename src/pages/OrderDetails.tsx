@@ -1,16 +1,76 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useSingleOrderQuery } from "../redux/api/orderApi"
 import { useEffect } from "react"
-import { CustomError } from "../types/type"
+import { CustomError, OrderItem } from "../types/type"
 import toast from "react-hot-toast"
 
 
+
+const orderItems: OrderItem[] = [
+  {
+    name: "",
+    photo: "",
+    productId: "",
+    quantity: 0,
+    price: 0,
+    _id:""
+  },
+];
+
+
+
+
+const defaultData  ={
+  shippingInfo :{ name: "",
+  address: "",
+  city: "",
+  state: "",
+  country: "",
+  pinCode: 0,},
+  status: "",
+  subtotal: 0,
+  discount: 0,
+  shippingCharges: 0,
+  tax: 0,
+  total: 0 ,
+  orderItems,
+  user:{name:"", _id:""},
+  _id:""
+}
 const OrderDetails = () => {
   const {id} = useParams()
-  // console.log({id});
+  console.log({id});
+  const navigate = useNavigate()
 
   const  {data, isLoading, error} = useSingleOrderQuery(id!)
 
+
+    const {shippingInfo:{
+
+      address,
+      city,
+      state,
+      country,
+      pinCode,
+  
+    },
+      
+      
+      orderItems, user:{name},
+    subTotal,
+    tax,
+    shippingCharges,
+    discount,
+    total,
+    status,
+  
+  } = data?.singleOrder || defaultData
+  
+  
+  
+console.log({address});
+
+        
 
   useEffect(() => {
     if(error){

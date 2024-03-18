@@ -19,7 +19,7 @@ export const orderApi = createApi({
       }),
       updateOrder: builder.mutation<UpdateOrderResponseType,UpdateOrderRequestType >({
         query: ({orderId, userId}) => ({
-          url: `${orderId}?id=${userId}`,
+          url: `order/${orderId}?id=${userId}`,
           method: "PUT",
         
         }),
@@ -27,7 +27,7 @@ export const orderApi = createApi({
       }),
       deleteOrder: builder.mutation<DeleteOrderResponseType,UpdateOrderRequestType >({
         query: ({orderId, userId}) => ({
-          url: `${orderId}?id=${userId}`,
+          url: `order/${orderId}?id=${userId}`,
           method: "DELETE",
         
         }),

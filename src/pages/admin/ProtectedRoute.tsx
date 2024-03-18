@@ -31,6 +31,9 @@ redirect ="/",
         // console.log({isAdmin});
         return <Navigate to={redirect } />
     }
+    // console.log("children in protected route" ,children);
+    // console.log("Outlet in protected route" ,Outlet);
+
   return   children ? children : <Outlet/> 
 
 }

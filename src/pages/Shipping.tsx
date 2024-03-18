@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { BiArrowBack } from "react-icons/bi"
 import { 
+  useDispatch,
   // useDispatch,
    useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -8,12 +9,17 @@ import { AppDispatch, RootState } from "../redux/store"
 import { useCreateNewOrderMutation } from "../redux/api/orderApi"
 import { NewOrderRequestType } from "../types/api-types"
 import { responseToast } from "../utils/features"
+import { server } from "../App"
+import axios from "axios"
+import toast from "react-hot-toast"
+import { saveShippingInfo } from "../redux/cartReducer"
 
 
 
 
 const Shipping = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     // const dispatch= useDispatch<AppDispatch>()
     const {cartItems, subtotal, tax, total, shippingCharges, discount} = useSelector((state:RootState)=>state.cartReducer)
     const  { user} = useSelector((state:RootState)=>state.userReducer)
@@ -38,13 +44,36 @@ const Shipping = () => {
     }
     const shippingFormSubmit=async(e:FormEvent<HTMLFormElement>)=>{
       e.preventDefault()
+      dispatch(saveShippingInfo(shippingInfo))
       // dispatch(createNewOrder(order))
-      const res = await createNewOrder(order)
+  //     const res = await createNewOrder(order)
 
-   responseToast(res, navigate,"/")
+  //  responseToast(res, navigate,"/")
 
 
-      console.log(order);
+  //     console.log(order);.
+
+
+
+  try {
+      const {data}  = await axios.post(`${server}/api/v1/payment/createpaymentintent`, {
+        amount:total
+      }, 
+        {
+          headers:{
+            "Content-Type":"application/json"
+          }
+        }
+      )
+
+      navigate("/pay", {
+        state:data.clientSecret
+      })
+  } catch (error) {
+      console.log(error);
+
+      toast.error("Something went wrong")
+  }
       
 }
   

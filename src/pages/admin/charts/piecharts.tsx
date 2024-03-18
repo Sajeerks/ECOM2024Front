@@ -1,18 +1,39 @@
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { DoughnutChart, PieChart } from "../../../components/admin/Charts";
-import data from "../../../assets/data.json";
+// import data from "../../../assets/data.json";
+import { Fragment } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { Skeleton } from "../../../components/Loader";
+import { usePieQuery } from "../../../redux/api/dashboardApi";
+import { RootState } from "../../../redux/store";
+import { CustomError } from "../../../types/type";
+import { Navigate } from "react-router-dom";
 
 const PieCharts = () => {
+  const {user} = useSelector((state:RootState)=>state.userReducer)
+const { error, data, isLoading} =   usePieQuery(user?._id!)
+
+if(error){
+  let err = error as CustomError
+  toast.error(err.data.message)
+  return  <Navigate to ={"/admin/dashboard"}/>
+}
+
+
+
+   
   return (
-    <div className="admin-container">
+    <Fragment>
+       {isLoading?<Skeleton length={10}/>:<div className="admin-container">
       <AdminSidebar />
       <main className="chart-container">
         <h1>Pie & Doughnut Charts</h1>
         <section>
           <div>
             <PieChart
-              labels={["Processing", "Shipped", "Delivered"]}
-              data={[12, 9, 13]}
+              labels= {  Object.keys(data?.charts.orderFullFillment!)}
+              data={  Object.values(data?.charts.orderFullFillment!)}
               backgroundColor={[
                 `hsl(110,80%, 80%)`,
                 `hsl(110,80%, 50%)`,
@@ -27,13 +48,13 @@ const PieCharts = () => {
         <section>
           <div>
             <DoughnutChart
-              labels={data.categories.map((i) => i.heading)}
-              data={data.categories.map((i) => i.value)}
-              backgroundColor={data.categories.map(
-                (i) => `hsl(${i.value * 4}, ${i.value}%, 50%)`
-              )}
+              labels={data?.charts?.productCategories.map((i) => Object.keys(i)[0])!}
+              data={data?.charts?.productCategories.map((i) => Object.values(i)[0])!}
+              backgroundColor={data?.charts.productCategories.map(
+                (i, index) => `hsl(${ Object.values(i)[0] * index}, ${ Object.values(i)[0]}%, 50%)`
+              )!}
               legends={false}
-              offset={[0, 0, 0, 80]}
+              offset={[20, 0, 20, 80]}
             />
           </div>
           <h2>Product Categories Ratio</h2>
@@ -42,8 +63,8 @@ const PieCharts = () => {
         <section>
           <div>
             <DoughnutChart
-              labels={["In Stock", "Out Of Stock"]}
-              data={[40, 20]}
+              labels={Object.keys(data?.charts.stockAvaliability!)}
+              data={Object.values(data?.charts.stockAvaliability!)}
               backgroundColor={["hsl(269,80%,40%)", "rgb(53, 162, 255)"]}
               legends={false}
               offset={[0, 80]}
@@ -56,14 +77,8 @@ const PieCharts = () => {
         <section>
           <div>
             <DoughnutChart
-              labels={[
-                "Marketing Cost",
-                "Discount",
-                "Burnt",
-                "Production Cost",
-                "Net Margin",
-              ]}
-              data={[32, 18, 5, 20, 25]}
+              labels={Object.keys(data?.charts.revenueDistribution!)}
+              data={Object.values(data?.charts.revenueDistribution!)}
               backgroundColor={[
                 "hsl(110,80%,40%)",
                 "hsl(19,80%,40%)",
@@ -81,12 +96,8 @@ const PieCharts = () => {
         <section>
           <div>
             <PieChart
-              labels={[
-                "Teenager(Below 20)",
-                "Adult (20-40)",
-                "Older (above 40)",
-              ]}
-              data={[30, 250, 70]}
+              labels={Object.keys(data?.charts.usersAgeGroup!)}
+              data={Object.values(data?.charts.usersAgeGroup!)}
               backgroundColor={[
                 `hsl(10, ${80}%, 80%)`,
                 `hsl(10, ${80}%, 50%)`,
@@ -101,15 +112,16 @@ const PieCharts = () => {
         <section>
           <div>
             <DoughnutChart
-              labels={["Admin", "Customers"]}
-              data={[40, 250]}
+              labels={Object.keys(data?.charts.adminCustomers!)}
+              data={Object.values(data?.charts.adminCustomers!)}
               backgroundColor={[`hsl(335, 100%, 38%)`, "hsl(44, 98%, 50%)"]}
               offset={[0, 50]}
             />
           </div>
         </section>
       </main>
-    </div>
+    </div>}
+    </Fragment>
   );
 };
 

@@ -11,6 +11,12 @@ import { AppDispatch, RootState } from "./redux/store";
 import { userExist, userNotExist } from "./redux/api/userReducer";
 import { getUser } from "./redux/api/userApi";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
+import Tester from "./pages/Tester";
+
+const Checkout = lazy(() => import("./pages/Checkout"));
+
+
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 
 
@@ -108,11 +114,12 @@ const  {loading, user} = useSelector((state:RootState)=>state.userReducer)
            <Route path="/shipping" element={<Shipping />} />
            <Route path="/orders" element={<Order />} />
            <Route path="/order/:id" element={<OrderDetails />} />
+           <Route path="/pay" element={<Checkout />} />
  
            </Route>
- 
- 
- 
+<Route path="/tester" element={  <ProtectedRoute   isAuthenticated={true}   children={<Tester/>}/>}> 
+
+  </Route>
  
  ///admin routes
  <Route
@@ -148,7 +155,7 @@ const  {loading, user} = useSelector((state:RootState)=>state.userReducer)
  
  
  
- 
+ <Route path="*" element={<NotFound/>} />
  
  
          </Routes>

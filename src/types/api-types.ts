@@ -1,9 +1,144 @@
-import {  CartItemType, OrderItem, ProductType, ShppingInfoType } from "./type";
+import {  CartItemType, OrderItem, ProductType, ShppingInfoType, UserType } from "./type";
 
 export interface MessageResponse {
   success: boolean;
   message: string;
 }
+
+
+
+export interface AllUsersResponse {
+  success: boolean;
+  message: string;
+  users:UserType[]
+}
+
+export interface DeleteUserRequest {
+  userId:string
+  userToBeDeletedID:string
+}
+
+export interface StatsType{
+  cartegoryCount:Record<string, number>[]
+    changePercent: {
+      products: number;
+      users: number;
+      orders: number;
+      revenue: number;
+  }
+    toatalRevenue:number
+    count: {
+      user: number;
+      product: number;
+      orders: number;
+  }
+    chart:{
+        order:number[],
+        revenue:number[]
+},
+
+userRatio:{
+  male: number;
+  female: number;
+},
+latestTransactions:{
+  _id: string;
+  discount: number;
+  amount: number;
+  quantity: number;
+  status: "Processing" | "Shipped" | "Delivered";
+}[]
+    
+
+
+
+}
+
+
+export interface PieType{
+  orderFullFillment: {
+    processing: number;
+    shipped: number;
+    delivered: number;
+}
+productCategories: Record<string, number>[]
+stockAvaliability: {
+  inStock: number;
+  ourOfStock: number;
+}  
+
+revenueDistribution: {
+  netMargin: number;
+  discount: number;
+  productionCost: number;
+  burnt: number;
+  marketingCost: number;
+  grossIncome: number;
+}
+adminCustomers: {
+  admin: number;
+  customer: number;
+}
+usersAgeGroup: {
+  teen: number;
+  adult: number;
+  old: number;
+}
+
+
+
+}
+
+
+export interface LineType {
+  users:number[],
+  products:number[],
+        order:number[],
+        total:number[],
+        discount:number[]
+
+}
+
+
+export interface BarType{
+
+  users:number[], 
+  product:number[],
+  order:number[]
+
+
+}
+
+export interface StatsResponse {
+  success:boolean
+  message:string
+ stats:StatsType
+}
+
+
+
+
+export interface PieResponse {
+  success:boolean
+  message:string
+ charts:PieType
+}
+
+export interface BarResponse {
+  success:boolean
+  message:string
+ charts:BarType
+}
+
+
+export interface LineResponse {
+  success:boolean
+  message:string
+ charts:LineType
+}
+
+
+
 
 export interface LatestProductsResponse {
   success: boolean;

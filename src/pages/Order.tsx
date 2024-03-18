@@ -81,7 +81,7 @@ const {user} = useSelector((state:RootState)=>state.userReducer)
 
 useEffect(() => {
   if(data){
-    console.log(data.myOrders);
+    // console.log(data.myOrders);
     setRows(data.myOrders.map((i)=>({
       _id:i._id,
       amount:i.total,
