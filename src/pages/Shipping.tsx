@@ -5,10 +5,10 @@ import {
   // useDispatch,
    useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { AppDispatch, RootState } from "../redux/store"
-import { useCreateNewOrderMutation } from "../redux/api/orderApi"
-import { NewOrderRequestType } from "../types/api-types"
-import { responseToast } from "../utils/features"
+import {  RootState } from "../redux/store"
+// import { useCreateNewOrderMutation } from "../redux/api/orderApi"
+// import { NewOrderRequestType } from "../types/api-types"
+
 import { server } from "../App"
 import axios from "axios"
 import toast from "react-hot-toast"
@@ -21,11 +21,11 @@ const Shipping = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     // const dispatch= useDispatch<AppDispatch>()
-    const {cartItems, subtotal, tax, total, shippingCharges, discount} = useSelector((state:RootState)=>state.cartReducer)
-    const  { user} = useSelector((state:RootState)=>state.userReducer)
+    const {cartItems,  total, } = useSelector((state:RootState)=>state.cartReducer)
+    // const  { user} = useSelector((state:RootState)=>state.userReducer)
 
 
-     const [createNewOrder]= useCreateNewOrderMutation()
+    //  const [createNewOrder]= useCreateNewOrderMutation()
     const [shippingInfo, setShippingInfo] = useState({
            address:"",
            city:"",
@@ -38,10 +38,10 @@ const Shipping = () => {
         setShippingInfo(prev=> ({...prev,[e.target.name]:e.target.value}))
     }
 
-    const order:NewOrderRequestType ={
-      shippingInfo,
-      orderItems:cartItems, subTotal:subtotal, tax, total, shippingCharges,discount, user:user?._id!
-    }
+    // const order:NewOrderRequestType ={
+    //   shippingInfo,
+    //   orderItems:cartItems, subTotal:subtotal, tax, total, shippingCharges,discount, user:user?._id!
+    // }
     const shippingFormSubmit=async(e:FormEvent<HTMLFormElement>)=>{
       e.preventDefault()
       dispatch(saveShippingInfo(shippingInfo))

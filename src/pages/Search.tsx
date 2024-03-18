@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
+import { useDispatch } from "react-redux"
+import { Skeleton } from "../components/Loader"
 import ProductCard from "../components/ProductCard"
 import { useAllCategoriesQuery, useSearchProductsQuery } from "../redux/api/productApi"
-import { CartItemType, CustomError } from "../types/type"
-import toast from "react-hot-toast"
-import { server } from "../App"
-import { Skeleton } from "../components/Loader"
 import { addToCart } from "../redux/cartReducer"
-import { useDispatch } from "react-redux"
+import { CartItemType, CustomError } from "../types/type"
 
 
 const Search = () => {
@@ -95,7 +94,7 @@ useEffect(() => {
           <select value={category} onChange={(e)=>setCategory(e.target.value)}>
 
             <option value="">None</option>
-      {!loadingCatergories  && categoryResponseData?.categories.map((i, idx)=>(
+      {!loadingCatergories  && categoryResponseData?.categories.map((i)=>(
                <option key={i} value={i}>{i.toUpperCase()}</option>
       ))  }
 

@@ -108,7 +108,7 @@ const Customers = () => {
   const {user} = useSelector((state:RootState)=>state.userReducer)
   
 
-  const { isLoading , error, isError, data} = useAllUsersQuery(user?._id!)
+  const { isLoading , error, data} = useAllUsersQuery(user?._id!)
   const [deleteUser] = useDelteUserMutation()
   if(error){
     const err = error as CustomError

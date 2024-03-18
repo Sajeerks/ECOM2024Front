@@ -1,5 +1,5 @@
 import { Elements, useElements, useStripe } from '@stripe/react-stripe-js'
-import { Stripe, loadStripe } from '@stripe/stripe-js';
+import {  loadStripe } from '@stripe/stripe-js';
 import {PaymentElement} from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';

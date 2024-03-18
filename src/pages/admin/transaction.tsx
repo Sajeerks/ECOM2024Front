@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
-import { useAllProductsQuery } from "../../redux/api/productApi";
+
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { useAllOrdersQuery } from "../../redux/api/orderApi";
@@ -22,33 +22,33 @@ interface DataType {
   action: ReactElement;
 }
 
-const arr: DataType[] = [
-  {
-    user: "Charas",
-    amount: 4500,
-    discount: 400,
-    status: <span className="red">Processing</span>,
-    quantity: 3,
-    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
-  },
+// const arr: DataType[] = [
+//   {
+//     user: "Charas",
+//     amount: 4500,
+//     discount: 400,
+//     status: <span className="red">Processing</span>,
+//     quantity: 3,
+//     action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+//   },
 
-  {
-    user: "Xavirors",
-    amount: 6999,
-    discount: 400,
-    status: <span className="green">Shipped</span>,
-    quantity: 6,
-    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
-  },
-  {
-    user: "Xavirors",
-    amount: 6999,
-    discount: 400,
-    status: <span className="purple">Delivered</span>,
-    quantity: 6,
-    action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
-  },
-];
+//   {
+//     user: "Xavirors",
+//     amount: 6999,
+//     discount: 400,
+//     status: <span className="green">Shipped</span>,
+//     quantity: 6,
+//     action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+//   },
+//   {
+//     user: "Xavirors",
+//     amount: 6999,
+//     discount: 400,
+//     status: <span className="purple">Delivered</span>,
+//     quantity: 6,
+//     action: <Link to="/admin/transaction/sajknaskd">Manage</Link>,
+//   },
+// ];
 
 const columns: Column<DataType>[] = [
   {
