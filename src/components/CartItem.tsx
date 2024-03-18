@@ -29,7 +29,7 @@ const CartItem = ({singleCartItem, incrementHandler, decrementHandler, remvoeHan
         name,
         price,
         quantity,
-        stock,
+       
     } = singleCartItem
   return (
     <div className="cart-items">
