@@ -8,24 +8,24 @@ import { server } from "../../../App";
 import { CustomError, OrderItem } from "../../../types/type";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import { useAllOrdersQuery, useDeleteOrderMutation, useSingleOrderQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
+import { useDeleteOrderMutation, useSingleOrderQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
 import toast from "react-hot-toast";
 import { Skeleton } from "../../../components/Loader";
 import { responseToast } from "../../../utils/features";
 
-const img =
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
+// const img =
+//   "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
-const orderItems1: OrderItem[] = [
-  {
-    name: "Puma Shoes",
-    photo: img,
-    productId: "asdsaasdas",
-    quantity: 4,
-    price: 2000,
-    _id:"ssssssssssssss"
-  },
-];
+// const orderItems1: OrderItem[] = [
+//   {
+//     name: "Puma Shoes",
+//     photo: img,
+//     productId: "asdsaasdas",
+//     quantity: 4,
+//     price: 2000,
+//     _id:"ssssssssssssss"
+//   },
+// ];
 const orderItems: OrderItem[] = [
   {
     name: "",
@@ -40,23 +40,23 @@ const orderItems: OrderItem[] = [
 
 
 
-const defaultData  ={
-  name: "",
-  address: "",
-  city: "",
-  state: "",
-  country: "",
-  pinCode: 0,
-  status: "",
-  subtotal: 0,
-  discount: 0,
-  shippingCharges: 0,
-  tax: 0,
-  total: 0 ,
-  orderItems,
-  user:{name:"", _id:""},
-  _id:""
-}
+// const defaultData  ={
+//   name: "",
+//   address: "",
+//   city: "",
+//   state: "",
+//   country: "",
+//   pinCode: 0,
+//   status: "",
+//   subtotal: 0,
+//   discount: 0,
+//   shippingCharges: 0,
+//   tax: 0,
+//   total: 0 ,
+//   orderItems,
+//   user:{name:"", _id:""},
+//   _id:""
+// }
 
 const TransactionManagement = () => {
   const  {user} = useSelector((state:RootState)=>state.userReducer)
